@@ -1,7 +1,15 @@
 <template>
     <div class="list">
       <ul>
-        <li>
+        <li v-for="(item, index) in list" v-bind:key="index">
+          <div class="text">
+            <p class="name">姓名：<span>{{item.name}}</span></p>
+            <p class="phone">电话：<span>{{item.phone}}</span></p>
+          </div>
+          <p class="company">公司：<span>{{item.company}}</span></p>
+          <p class="address">地址：<span>{{item.province}}-{{item.city}}-{{item.district}}</span></p>
+        </li>
+        <!-- <li>
           <div class="text">
             <p class="name">姓名：<span>王其</span></p>
             <p class="phone">电话：<span>18256907916</span></p>
@@ -48,22 +56,51 @@
           </div>
           <p class="company">公司：<span>北京一点网聚科技有限公司</span></p>
           <p class="address">地址：<span>启阳路中轻大厦A座</span></p>
-        </li>
-        <li>
-          <div class="text">
-            <p class="name">姓名：<span>王其</span></p>
-            <p class="phone">电话：<span>18256907916</span></p>
-          </div>
-          <p class="company">公司：<span>北京一点网聚科技有限公司</span></p>
-          <p class="address">地址：<span>启阳路中轻大厦A座</span></p>
-        </li>
+        </li> -->
       </ul>
-      <div class="submit">筛选</div>
+      <div class="submit" @click="submit">筛选</div>
     </div>
 </template>
 
 <script>
- 
+  export default {
+    data() {
+      return {
+        list: []
+      }
+    },
+    props: {
+      timeS: {
+        type: String,
+        default: ''
+      },
+      timeE: {
+        type: String,
+        default: ''
+      },
+    },
+    mounted: function() {
+      this.show();
+    },
+    methods: {
+      show (startTime, endTime) {
+        var _that = this;
+        let params = {
+          'startTime': startTime,
+          'endTIme': endTime
+        }
+
+        this.$http.get('https://top.yidianzixun.com/applet/clue', {params})
+        .then(this.getDataList)
+      },
+      getDataList (res) {
+        this.list = res.data.data
+      },
+      submit: function () {
+        this.show(this.timeS, this.timeE);
+      }
+    }
+  }
 </script>
 <style lang="less" scoped>
     .list{

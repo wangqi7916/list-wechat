@@ -25,6 +25,32 @@
         valueStart: '',
         valueEnd: ''
       };
+    },
+    watch: {
+        valueStart: function (val) {
+            this.valueStart = this.formatDate(val)
+            this.$emit('watchStartTime', this.valueStart);
+        },
+        valueEnd: function (val) {
+             this.valueEnd = this.formatDate(val)
+             this.$emit('watchEndTime', this.valueEnd);
+        }
+    },
+    methods: {
+        formatDate (time) {
+            let date = new Date(time);
+            let year = date.getFullYear(),
+                month = date.getMonth() + 1,//月份是从0开始的
+                day = date.getDate()
+
+            month = month < 10 ? '0' + month : month;
+            day = day < 10 ? '0' + day : day;
+
+            let newTime = year + '-' +
+                        month + '-' +
+                        day
+            return newTime;
+        }
     }
   };
 </script>
