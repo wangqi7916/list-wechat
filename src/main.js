@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import ELementUI from 'element-ui'
+import '../css/common.css'
 
 Vue.use(ELementUI)
 

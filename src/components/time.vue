@@ -49,5 +49,11 @@
             width:100%;
         }
     }
-
+    @media screen and (min-width: 414px) {
+        .allTime{
+            width: 414px;
+            left:50%;
+            margin-left:-207px;
+        }
+    }   
 </style>
